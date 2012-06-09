@@ -1,0 +1,5 @@
+load:
+  - src/js/*.js
+  - test/lib/jshamcrest.js
+  - test/lib/integrate.js
+  - test/unit/*.js
