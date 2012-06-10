@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="tests.jstd" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+    <setting name="configLocationType" value="CONFIG_FILE" />
+    <setting name="settingsFile" value="$PROJECT_DIR$/tests.jstd" />
+    <setting name="serverType" value="INTERNAL" />
+    <RunnerSettings RunnerId="JsTestDriverClientRunner" />
+    <ConfigurationWrapper RunnerId="JsTestDriverClientRunner" />
+    <method />
+  </configuration>
+</component>

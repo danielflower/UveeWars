@@ -19,6 +19,9 @@ UVEEWAR.Blot = function (location, size) {
 		return dist < ((me.size / 2) + (other.size) / 2);
 	};
 
+    /**
+     * @param {CanvasContext} context
+     */
 	this.draw = function (context) {
 		context.strokeStyle = "#000000";
 		context.fillStyle = "#FFFF00";
@@ -28,6 +31,10 @@ UVEEWAR.Blot = function (location, size) {
 		context.stroke();
 		context.fill();
 	};
+
+    this.toString = function () {
+        return "Blot at " + me.location;
+    };
 
 };
 

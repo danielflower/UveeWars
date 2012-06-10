@@ -1,7 +1,7 @@
 if (!window.UVEEWAR) UVEEWAR = {};
 
 /**
- * @param {CanvasRenderingContext2D} context
+ * @param {CanvasContext} context
  * @param {UVEEWAR.Dimension} size
  * @constructor
  */
@@ -10,9 +10,20 @@ UVEEWAR.World = function (context, size) {
 	var blots = [];
 	var me = this;
 
+    /**
+     * @param {UVEEWAR.Blot} blot
+     */
 	this.addBlot = function (blot) {
 		blots.push(blot);
 	};
+
+    /**
+     * @returns {UVEEWAR.Blot[]}
+     */
+    this.getBlots = function () {
+        // eek, a method added only for the benefit of unit tests (so far)
+        return blots;
+    };
 
 	this.update = function () {
 		var i, j;
@@ -24,17 +35,19 @@ UVEEWAR.World = function (context, size) {
 				var other = blots[j];
 				if (blot.isCollided(other)) {
 					blotIsDead = true;
-					if (deadBlots.indexOf(i) == -1)
-						deadBlots.push(i);
-					if (deadBlots.indexOf(j) == -1)
-						deadBlots.push(j);
+                    if (deadBlots.indexOf(i) == -1) {
+                        deadBlots.push(i);
+                    }
+                    if (deadBlots.indexOf(j) == -1) {
+                        deadBlots.push(j);
+                    }
 				}
 			}
-			if (!blotIsDead)
-				updateBlot(me, blot);
+//			if (!blotIsDead)
+//				updateBlot(me, blot);
 		}
 		for (i = 0; i < deadBlots.length; i++) {
-			blots.splice(deadBlots[i], 1);
+			blots.splice(deadBlots[i] - i, 1);
 		}
 	};
 

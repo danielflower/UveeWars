@@ -21,4 +21,9 @@ UVEEWAR.Dimension = function (x, y) {
 		var yLength = Math.abs(me.y - other.y);
 		return Math.sqrt(xLength * xLength + yLength * yLength);
 	};
+
+    this.toString = function () {
+        return '[' + me.x + ',' + me.y + ']';
+    };
+
 };
