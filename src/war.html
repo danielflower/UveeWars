@@ -4,13 +4,14 @@
 	<title>Uvee War</title>
 </head>
 <script type="text/javascript" src="js/dimension.js"></script>
+<script type="text/javascript" src="js/blot.js"></script>
 <script type="text/javascript">
 
 	var world;
 
 	/**
 	 * @param {World} world
-	 * @param {Blot} blot
+	 * @param {UVEEWAR.Blot} blot
 	 */
 	function updateBlot(world, blot) {
 		blot.location.add(blot.velocity);
@@ -40,7 +41,7 @@
 
 	/**
 	 * @param {CanvasRenderingContext2D} context
-	 * @param {Dimension} size
+	 * @param {UVEEWAR.Dimension} size
 	 * @constructor
 	 */
 	function World(context, size) {
@@ -86,29 +87,9 @@
 		};
 	}
 
-	/**
-	 * @param {Dimension} location
-	 * @param {Dimension} size
-	 * @constructor
-	 */
-	function Blot(location, size) {
-		var me = this;
-		this.size = size;
-		this.location = location;
-		this.velocity = new Dimension(1, 1);
-		/**
-		 * @param {Blot} other
-		 */
-		this.isCollided = function (other) {
-			var dist = me.location.distance(other);
-			return dist < ((me.size / 2) + (other.size) / 2);
-		};
-	}
-
-
 
 	window.onload = function () {
-		var worldSize = new Dimension(600, 400);
+		var worldSize = new UVEEWAR.Dimension(600, 400);
 
 		canvas = document.getElementById('viewport');
 		if (canvas.getContext) {
@@ -118,7 +99,7 @@
 			world = new World(canvas.getContext('2d'), worldSize);
 
 			for (var i = 0; i < 10; i++) {
-				var blot = new Blot(new Dimension(i * 20, 0), 10);
+				var blot = new UVEEWAR.Blot(new UVEEWAR.Dimension(i * 20, 0), 10);
 				world.addBlot(blot);
 			}
 
