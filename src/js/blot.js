@@ -19,5 +19,15 @@ UVEEWAR.Blot = function (location, size) {
 		return dist < ((me.size / 2) + (other.size) / 2);
 	};
 
+	this.draw = function (context) {
+		context.strokeStyle = "#000000";
+		context.fillStyle = "#FFFF00";
+		context.beginPath();
+		context.arc(me.location.x, me.location.y, me.size / 2, 0, Math.PI * 2, true);
+		context.closePath();
+		context.stroke();
+		context.fill();
+	};
+
 };
 

@@ -43,7 +43,7 @@ UVEEWAR.World = function (context, size) {
 		context.fillRect(0, 0, me.size.x, me.size.y);
 
 		for (var i = 0; i < blots.length; i++) {
-			draw(context, blots[i]);
+			blots[i].draw(context);
 		}
 	};
 };

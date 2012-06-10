@@ -24,16 +24,6 @@
 		}
 	}
 
-	function draw(context, blot) {
-		context.strokeStyle = "#000000";
-		context.fillStyle = "#FFFF00";
-		context.beginPath();
-		context.arc(blot.location.x, blot.location.y, blot.size / 2, 0, Math.PI * 2, true);
-		context.closePath();
-		context.stroke();
-		context.fill();
-	}
-
 	function mainLoop() {
 		world.update();
 		world.draw();
