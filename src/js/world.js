@@ -25,28 +25,32 @@ UVEEWAR.World = function (context, size) {
         return blots;
     };
 
-	this.update = function () {
+    /**
+     * @param {UVEEWAR.BlotManager} blotManager
+     */
+	this.update = function (blotManager) {
 		var i, j;
 		var deadBlots = [];
 		for (i = 0; i < blots.length; i++) {
 			var blot = blots[i];
-			var blotIsDead = false;
+			var blotIsDead = deadBlots.indexOf(i) !== -1;
 			for (j = i + 1; j < blots.length; j++) {
 				var other = blots[j];
 				if (blot.isCollided(other)) {
 					blotIsDead = true;
-                    if (deadBlots.indexOf(i) == -1) {
+                    if (deadBlots.indexOf(i) === -1) {
                         deadBlots.push(i);
                     }
-                    if (deadBlots.indexOf(j) == -1) {
+                    if (deadBlots.indexOf(j) === -1) {
                         deadBlots.push(j);
                     }
 				}
 			}
-//			if (!blotIsDead)
-//				updateBlot(me, blot);
+			if (!blotIsDead)
+				blotManager.updateBlot(me, blot);
 		}
 		for (i = 0; i < deadBlots.length; i++) {
+            me.addBlot(blotManager.createBlot(me));
 			blots.splice(deadBlots[i] - i, 1);
 		}
 	};

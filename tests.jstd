@@ -1,6 +1,6 @@
 load:
   - src/js/*.js
   - test/lib/jshamcrest.js
-  - test/lib/jsmockito.js
+  - test/lib/jsmockito-df-1.0.5.js
   - test/lib/integrate.js
   - test/unit/*.js

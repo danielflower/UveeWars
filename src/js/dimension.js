@@ -1,5 +1,10 @@
 if (!window.UVEEWAR) UVEEWAR = {};
 
+/**
+ * @param {Number} x
+ * @param {Number} y
+ * @constructor
+ */
 UVEEWAR.Dimension = function (x, y) {
 	var me = this;
 	this.x = x;

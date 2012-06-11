@@ -1,62 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Uvee War</title>
+    <title>Uvee War</title>
 </head>
 <script type="text/javascript" src="js/dimension.js"></script>
 <script type="text/javascript" src="js/world.js"></script>
 <script type="text/javascript" src="js/blot.js"></script>
+<script type="text/javascript" src="js/blot-manager.js"></script>
 <script type="text/javascript">
 
-	var world;
+    var world;
 
-	/**
-	 * @param {UVEEWAR.World} world
-	 * @param {UVEEWAR.Blot} blot
-	 */
-	function updateBlot(world, blot) {
-		blot.location.add(blot.velocity);
-		if (blot.location.x > world.size.x || blot.location.x < 0) {
-			blot.velocity.x = -blot.velocity.x;
-		}
-		if (blot.location.y > world.size.y || blot.location.y < 0) {
-			blot.velocity.y = -blot.velocity.y;
-		}
-	}
+    /**
+     * @constructor
+     * @implements {UVEEWAR.BlotManager}
+     */
+    function BlotManagerImpl() {
+        /**
+         * @param {UVEEWAR.World} world
+         * @param {UVEEWAR.Blot} blot
+         */
+        this.updateBlot = function (world, blot) {
+            blot.location.add(blot.velocity);
+            if (blot.location.x > world.size.x || blot.location.x < 0) {
+                blot.velocity.x = -blot.velocity.x;
+            }
+            if (blot.location.y > world.size.y || blot.location.y < 0) {
+                blot.velocity.y = -blot.velocity.y;
+            }
+        };
 
-	function mainLoop() {
-		world.update();
-		world.draw();
-		window.setTimeout(mainLoop, 10);
-	}
+        /**
+         * @param {UVEEWAR.World} world
+         * @return {UVEEWAR.Blot}
+         */
+        this.createBlot = function (world) {
+            var x = 10 + Math.random() * (world.size.x - 20);
+            var y = 10 + Math.random() * (world.size.x - 20);
+            return new UVEEWAR.Blot(new UVEEWAR.Dimension(x, y), 10)
+        };
+    }
+    var blotManagerImpl = new BlotManagerImpl();
 
-	window.onload = function () {
-		var worldSize = new UVEEWAR.Dimension(600, 400);
+    function mainLoop() {
+        world.update(blotManagerImpl);
+        world.draw();
+        window.setTimeout(mainLoop, 10);
+    }
 
-		canvas = document.getElementById('viewport');
-		if (canvas.getContext) {
-			canvas.width = worldSize.x;
-			canvas.height = worldSize.y;
+    window.onload = function () {
+        var worldSize = new UVEEWAR.Dimension(600, 400);
 
-			world = new UVEEWAR.World(canvas.getContext('2d'), worldSize);
+        canvas = document.getElementById('viewport');
+        if (canvas.getContext) {
+            canvas.width = worldSize.x;
+            canvas.height = worldSize.y;
 
-			for (var i = 0; i < 10; i++) {
-				var blot = new UVEEWAR.Blot(new UVEEWAR.Dimension(i * 20, i * 11), 10);
-				world.addBlot(blot);
-			}
+            world = new UVEEWAR.World(canvas.getContext('2d'), worldSize);
 
-			mainLoop();
-		} else {
-			alert('Sorry, your browser does not support drawing to the canvas.')
-		}
-	};
+            for (var i = 0; i < 20; i++) {
+                var blot = blotManagerImpl.createBlot(world);
+                world.addBlot(blot);
+            }
+
+            mainLoop();
+        } else {
+            alert('Sorry, your browser does not support drawing to the canvas.')
+        }
+    };
 
 </script>
 <body>
 <div>
-	<canvas id="viewport" style="border: 1px solid black">
-		<p>Sorry, your browser is not good enough.</p>
-	</canvas>
+    <canvas id="viewport" style="border: 1px solid black">
+        <p>Sorry, your browser is not good enough.</p>
+    </canvas>
 </div>
 </body>
 </html>
